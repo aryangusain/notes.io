@@ -1,31 +1,55 @@
 import { create } from 'zustand'
 
-interface SidebarState {
-    open: boolean,
-    flipState: () => void
-}
-
-interface TabState {
-  active: "edit" | "preview",
-  setState: (by: "edit" | "preview") => void
-}
-
-interface TextState {
+interface ChangeState {
   text: string,
   changeText: (str: string) => void
 }
 
-export const useTextStore = create<TextState>((set) => ({
+interface FlipState {
+  open: boolean,
+  setOpen: () => void
+}
+
+interface ThemeState {
+  theme: "dark" | "light",
+  setTheme: (val: "dark" | "light") => void
+}
+
+export const useTitleStore = create<ChangeState>((set) => ({
   text: "",
   changeText: (str) => set(() => ({text: str}))
 }))
 
-export const useTabStore = create<TabState>((set) => ({
-  active: "edit",
-  setState: (name) => set(() => ({active: name}))
+export const useContentStore = create<ChangeState>((set) => ({
+  text: "",
+  changeText: (str) => set(() => ({text: str}))
 }))
 
-export const useSidebarStore = create<SidebarState>((set) => ({
+export const usePreviewStore = create<FlipState>((set) => ({
   open: false,
-  flipState: () => set((state) => ({open: !state.open}))
+  setOpen: () => set((state) => ({open: !state.open}))
 }))
+
+export const useSidebarStore = create<FlipState>((set) => ({
+  open: false,
+  setOpen: () => set((state) => ({open: !state.open}))
+}))
+
+export const useProfileStore = create<FlipState>((set) => ({
+  open: false,
+  setOpen: () => set((state) => ({open: !state.open}))
+}))
+
+export const useThemeStore = create<ThemeState>((set) => ({
+  theme: "dark",
+  setTheme: (val) => {
+    set({ theme: val });
+    localStorage.setItem("theme", val);
+    if (val === "dark") {
+      document.documentElement.classList.add("dark");
+    } 
+    else {
+      document.documentElement.classList.remove("dark");
+    }
+  },
+}));
