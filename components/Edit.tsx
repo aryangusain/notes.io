@@ -3,9 +3,10 @@
 import React, { KeyboardEvent } from "react";
 import Button from "./ui/Button";
 import { IconDeviceFloppy, IconEye, IconFile } from "@tabler/icons-react";
-import { usePreviewStore, useNoteStore } from "@/store/store";
+import { usePreviewStore, useNoteStore, useLoadingStore } from "@/store/store";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import { Loader } from "./ui/Loader";
 
 const Edit = () => {
   const id = useNoteStore((state) => state.id);
@@ -19,6 +20,7 @@ const Edit = () => {
   const notes = useNoteStore((state) => state.notes);
   const changeId = useNoteStore((state) => state.changeId);
   const {data: session} = useSession();
+  const loading = useLoadingStore((state) => state.loading);
 
   const handleSave = async () => {
     if (!title.trim()) {
@@ -80,47 +82,52 @@ const Edit = () => {
     }
   };
 
-  return (
-    <div className="select-text w-full h-full dark:bg-[#27272a] bg-neutral-200 rounded-xl px-4 py-3 flex flex-col gap-[20px] shadow-md">
-      <div className="flex justify-between items-center ">
-        <div className="flex gap-[10px] ">
+  if(loading) {
+    return <Loader />
+  }
+  else {
+    return (
+      <div className="select-text w-full h-full dark:bg-[#27272a] bg-neutral-200 rounded-xl px-4 py-3 flex flex-col gap-[20px] shadow-md">
+        <div className="flex justify-between items-center ">
+          <div className="flex gap-[10px] ">
+            <Button
+              variant="secondary"
+              icon={<IconEye className="size-4" />}
+              onClick={setPreviewOpen}
+            >
+              Preview
+            </Button>
+            <Button variant="secondary" icon={<IconFile className="size-4" />}>
+              Export
+            </Button>
+          </div>
           <Button
-            variant="secondary"
-            icon={<IconEye className="size-4" />}
-            onClick={setPreviewOpen}
+            variant="primary"
+            icon={<IconDeviceFloppy className="size-4" />}
+            onClick={handleSave}
           >
-            Preview
-          </Button>
-          <Button variant="secondary" icon={<IconFile className="size-4" />}>
-            Export
+            Save
           </Button>
         </div>
-        <Button
-          variant="primary"
-          icon={<IconDeviceFloppy className="size-4" />}
-          onClick={handleSave}
-        >
-          Save
-        </Button>
+
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => changeTitle(e.target.value)}
+          className="dark:bg-[#3f3f46] shadow-md bg-neutral-100 px-3 py-2 rounded-lg outline-none"
+          placeholder="title"
+          />
+
+        <textarea
+          value={content}
+          onChange={(e) => changeContent(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="dark:bg-[#3f3f46] shadow-md bg-neutral-100 rounded-lg h-full outline-none py-2 px-3 resize-none no-scrollbar -mt-[10px]"
+          placeholder="content"
+          ></textarea>
       </div>
-
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => changeTitle(e.target.value)}
-        className="dark:bg-[#3f3f46] shadow-md bg-neutral-100 px-3 py-2 rounded-lg outline-none"
-        placeholder="title"
-      />
-
-      <textarea
-        value={content}
-        onChange={(e) => changeContent(e.target.value)}
-        onKeyDown={handleKeyDown}
-        className="dark:bg-[#3f3f46] shadow-md bg-neutral-100 rounded-lg h-full outline-none py-2 px-3 resize-none no-scrollbar -mt-[10px]"
-        placeholder="content"
-      ></textarea>
-    </div>
-  );
+    );
+  }
 };
 
 export default Edit;

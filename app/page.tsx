@@ -8,14 +8,13 @@ import { Loader } from "@/components/ui/Loader";
 import { useLoadingStore } from "@/store/store";
 
 export default function Home() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
+  const loading = useLoadingStore((state) => state.loading);
   const setLoading = useLoadingStore((state) => state.setLoading);
 
-  if (status === "loading") {
+  if (loading) {
     return (
-      <div className="min-h-screen flex justify-center items-center bg-neutral-200 dark:bg-neutral-900">
         <Loader />
-      </div>
     );
   }
 

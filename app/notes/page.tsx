@@ -30,7 +30,9 @@ const Page = () => {
       } catch (err) {
         console.error(err);
       }
-      setLoading(false);
+      finally {
+        setLoading(false);
+      }
     };
 
     fetchNotes();
@@ -40,14 +42,15 @@ const Page = () => {
   if(loading) {
     return <Loader />
   }
-
-  return (
-    <div className="flex items-center justify-center mt-[20px] w-full">
-      <div className="md:w-[600px] w-full h-[650px] relative shadow-xl">
-        <Edit />
-        {previewOpen && <Preview />}
+  else {
+    return (
+      <div className="flex items-center justify-center mt-[20px] w-full">
+        <div className="md:w-[600px] w-full h-[650px] relative shadow-xl">
+          <Edit />
+          {previewOpen && <Preview />}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 export default Page;
