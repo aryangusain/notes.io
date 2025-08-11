@@ -18,7 +18,7 @@ const Edit = () => {
   const setNotes = useNoteStore((state) => state.setNotes);
   const notes = useNoteStore((state) => state.notes);
   const changeId = useNoteStore((state) => state.changeId);
-  const {data: session, status} = useSession();
+  const {data: session} = useSession();
 
   const handleSave = async () => {
     if (!title.trim()) {
@@ -81,7 +81,7 @@ const Edit = () => {
   };
 
   return (
-    <div className="w-full h-full dark:bg-[#27272a] bg-neutral-200 rounded-xl px-4 py-3 flex flex-col gap-[20px] shadow-md">
+    <div className="select-text w-full h-full dark:bg-[#27272a] bg-neutral-200 rounded-xl px-4 py-3 flex flex-col gap-[20px] shadow-md">
       <div className="flex justify-between items-center ">
         <div className="flex gap-[10px] ">
           <Button

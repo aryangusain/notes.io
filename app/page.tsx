@@ -5,9 +5,11 @@ import { IconDoorEnter } from "@tabler/icons-react";
 import { useSession, signIn } from "next-auth/react";
 import Link from "next/link";
 import { Loader } from "@/components/ui/Loader";
+import { useLoadingStore } from "@/store/store";
 
 export default function Home() {
   const { data: session, status } = useSession();
+  const setLoading = useLoadingStore((state) => state.setLoading);
 
   if (status === "loading") {
     return (
@@ -39,6 +41,7 @@ export default function Home() {
 
       {session ? (
         <Link
+          onClick={() => setLoading(true)}
           href="/notes"
           className="no-underline px-4 md:py-2 py-1.5 bg-white shadow-md dark:border-0 border border-neutral-400 hover:bg-neutral-100 text-black font-semibold rounded-lg text-[10px] md:text-[12px] md:-mt-[20px]"
         >
@@ -49,7 +52,7 @@ export default function Home() {
         </Link>
       ) : (
         <button
-          onClick={() => signIn("google", { callbackUrl: "/notes" })}
+          onClick={() => { setLoading(true); signIn("google", { callbackUrl: "/notes" });}}
           className="flex gap-2 items-center px-4 md:py-2 py-1.5 bg-white shadow-md border border-neutral-300 hover:bg-neutral-100 cursor-pointer text-black rounded-lg text-[10px] md:text-[12px] md:-mt-[20px]"
         >
           <img src="/google_logo.svg" className="size-4 md:size-5" />

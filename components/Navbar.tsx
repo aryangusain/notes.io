@@ -33,7 +33,7 @@ const Navbar = () => {
                     <IconMoon onClick={() => setTheme("dark")} className="h-[24px] w-[24px] md:mr-[40px] mr-[20px] cursor-pointer text-neutral-900"/>
                 }   
                 { session?.user?.image && 
-                    <img src={session?.user?.image} onClick={setTabOpen} alt="user image" className="cursor-pointer rounded-full h-[32px] w-[32px]"/>
+                    <img src={session?.user?.image} onClick={setTabOpen} alt="user image" className="select-none cursor-pointer rounded-full h-[32px] w-[32px]"/>
                 }
                 {
                     tabOpen &&

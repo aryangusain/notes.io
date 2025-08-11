@@ -5,7 +5,7 @@ import Sidebar from "@/components/Sidebar"
 import { cn } from "@/lib/utils"
 import { useLoadingStore } from "@/store/store"
 
-const layout = ({children}: {children: React.ReactNode}) => {
+const NoteLayout = ({children}: {children: React.ReactNode}) => {
   const loading = useLoadingStore((state) => state.loading);
 
   return (
@@ -16,4 +16,4 @@ const layout = ({children}: {children: React.ReactNode}) => {
     </div>
   )
 }
-export default layout
+export default NoteLayout

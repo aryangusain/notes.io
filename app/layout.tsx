@@ -20,7 +20,7 @@ export default async function RootLayout({
   const session = await getServerSession();
   
   return (
-    <html lang="en" suppressHydrationWarning className={cn("no-scrollbar")}>
+    <html lang="en" suppressHydrationWarning className={cn("no-scrollbar select-none")}>
       <body
         className={`min-h-screen w-full`}
       >

@@ -4,13 +4,14 @@ import Edit from "@/components/Edit";
 import Preview from "@/components/Preview";
 import { useLoadingStore, usePreviewStore } from "@/store/store";
 import { useNoteStore } from "@/store/store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { Loader } from "@/components/ui/Loader";
+import { Note } from "@prisma/client";
 
 const Page = () => {
   const previewOpen = usePreviewStore((state) => state.open);
-  const setNotes = (newNotes: any[]) => useNoteStore.setState({ notes: newNotes });
+  const setNotes = (newNotes: Note[]) => useNoteStore.setState({ notes: newNotes });
 
   const { data: session } = useSession();
   const loading = useLoadingStore((state) => state.loading);
@@ -19,7 +20,6 @@ const Page = () => {
   useEffect(() => {
     if (!session?.user?.email) return;
 
-    
     const fetchNotes = async () => {
       setLoading(true);
       try {
