@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+ { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { title, content } = await req.json();
@@ -15,7 +15,7 @@ export async function PUT(
       );
     }
 
-    const id = (await params).id;
+    const id = (await params).id
     const note = await prisma.note.update({
       where: { id },
       data: { title, content },
@@ -33,7 +33,7 @@ export async function PUT(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const id = (await params).id;
