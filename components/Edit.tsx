@@ -17,6 +17,7 @@ const Edit = () => {
   const setPreviewOpen = usePreviewStore((state) => state.setOpen);
   const setNotes = useNoteStore((state) => state.setNotes);
   const notes = useNoteStore((state) => state.notes);
+  const changeId = useNoteStore((state) => state.changeId);
   const {data: session, status} = useSession();
 
   const handleSave = async () => {
@@ -48,7 +49,7 @@ const Edit = () => {
         });
         data = await res.json();
         const newNotes = [...notes, data.note];
-        console.log(newNotes);
+        changeId(data.note.id);
         setNotes(newNotes);
       }
 

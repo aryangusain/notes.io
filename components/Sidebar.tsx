@@ -13,7 +13,7 @@ const Sidebar = () => {
   const setSidebarOpen = useSidebarStore((state) => state.setOpen);
   const notes = useNoteStore((state) => state.notes);
   const setNotes = useNoteStore((state) => state.setNotes);
-  const changeId = useNoteStore((state) => state.changeId);
+  const currentId = useNoteStore((state) => state.id);
   const resetNote = useNoteStore((state) => state.resetNote);
 
   const handleDelete = async (id: string) => {
@@ -31,7 +31,9 @@ const Sidebar = () => {
 
       setNotes(notes.filter((note) => note.id !== id));
       toast.success("Note deleted successfully");
-      changeId(null);
+      if(currentId == id) {
+        resetNote();
+      }
     } catch (error) {
       toast.error("Something went wrong");
     }
