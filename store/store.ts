@@ -6,6 +6,11 @@ interface FlipState {
   setOpen: () => void
 }
 
+interface LoadingState {
+  loading: boolean,
+  setLoading: (val: boolean) => void
+}
+
 interface NoteState {
   notes: Note[];
   id: string | null;
@@ -52,6 +57,11 @@ export const useNoteStore = create<NoteState>((set) => ({
 export const usePreviewStore = create<FlipState>((set) => ({
   open: false,
   setOpen: () => set((state) => ({open: !state.open}))
+}))
+
+export const useLoadingStore = create<LoadingState>((set) => ({
+  loading: false,
+  setLoading: (val: boolean) => set((state) => ({loading: val}))
 }))
 
 export const useSidebarStore = create<FlipState>((set) => ({
