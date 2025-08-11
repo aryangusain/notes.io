@@ -3,8 +3,8 @@ import "./globals.css";
 import Providers from "../components/Providers";
 import { getServerSession } from "next-auth";
 import { cn } from "@/lib/utils";
-import { useThemeStore } from "@/store/store";
-import { ThemeInitializer } from "@/components/ThemeInitializer";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "Notes.io",
@@ -20,33 +20,16 @@ export default async function RootLayout({
   const session = await getServerSession();
   
   return (
-    <html lang="en" className={cn("no-scrollbar")}>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('theme');
-                  if (!theme) {
-                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  }
-                  if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                  }
-                } catch (_) {}
-              })();
-            `,
-          }}
-        />
-      </head>
+    <html lang="en" suppressHydrationWarning className={cn("no-scrollbar")}>
       <body
         className={`min-h-screen w-full`}
       >
-        <Providers session={session}>
-          <ThemeInitializer />
-          {children}
-        </Providers>
+        <ThemeProvider>
+          <ToastContainer position="top-right" closeOnClick={true} />
+          <Providers session={session}>
+            {children}
+          </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

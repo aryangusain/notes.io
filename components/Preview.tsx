@@ -7,10 +7,10 @@ import rehypeRaw from 'rehype-raw'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 //@ts-ignore
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { useContentStore, usePreviewStore } from '@/store/store';
+import { useNoteStore } from '@/store/store';
 
 const Preview = () => {
-    const content = useContentStore((state) => state.text);
+    const content = useNoteStore((state) => state.content);
 
     return (
         <div className="absolute top-16 left-[50%] translate-x-[-50%] w-[95%] rounded-xl h-[575px] dark:bg-[#3f3f46] bg-neutral-100 outline-none py-4 px-4 z-20 no-scrollbar">

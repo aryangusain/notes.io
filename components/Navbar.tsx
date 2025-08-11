@@ -4,7 +4,9 @@ import { IconLayoutSidebar, IconLogout, IconMoon, IconSun } from "@tabler/icons-
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import Button from "./ui/Button";
-import { useProfileStore, useSidebarStore, useThemeStore } from "@/store/store";
+import { useProfileStore, useSidebarStore } from "@/store/store";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
     const {data: session} = useSession();
@@ -12,8 +14,12 @@ const Navbar = () => {
     const setSidebarOpen = useSidebarStore((state) => state.setOpen);
     const tabOpen = useProfileStore((state) => state.open);
     const setTabOpen = useProfileStore((state) => state.setOpen);
-    const theme = useThemeStore((state) => state.theme);
-    const setTheme = useThemeStore((state) => state.setTheme);
+    const {theme, setTheme} = useTheme();
+
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+
+    if (!mounted) return null; 
 
     return (
         <div className="flex items-center md:w-[600px] w-full justify-between md:py-[10px] px-[10px] py-[6px] bg-transparent">
