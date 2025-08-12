@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useSearchStore, useSidebarStore } from "@/store/store";
+import { usePreviewStore, useSearchStore, useSidebarStore } from "@/store/store";
 import { useNoteStore } from "@/store/store";
 import { IconPlus, IconSearch, IconX } from "@tabler/icons-react";
 import Button from "./ui/Button";
@@ -19,6 +19,7 @@ const Sidebar = () => {
   const sidebarRef = useOutsideClick(() => setSidebarOpen(false))
   const searchText = useSearchStore((state) => state.text);
   const changeSearchText = useSearchStore((state) => state.changeText);
+  const setPreviewOpen = usePreviewStore((state) => state.setOpen);
 
   const handleDelete = async (id: string) => {
     try {
@@ -63,7 +64,7 @@ const Sidebar = () => {
           variant="primary"
           icon={<IconPlus className="size-4" />}
           className="rounded-full mb-[10px]"
-          onClick={() => {resetNote(); setSidebarOpen(false); }}
+          onClick={() => {resetNote(); setSidebarOpen(false); setPreviewOpen(false);}}
         >
           Create new
         </Button>
