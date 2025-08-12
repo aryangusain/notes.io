@@ -25,7 +25,13 @@ export default async function RootLayout({
         className={`min-h-screen w-full relative`}
       >
         <ThemeProvider>
-          <ToastContainer position="top-right" closeOnClick={true} />
+          <ToastContainer 
+            className="md:text-base text-sm py-2 px-4 sm:max-w-full max-w-[300px]" 
+            position="top-right" 
+            autoClose={3000}
+            closeOnClick={true} 
+            draggable={true}
+          />
           <Providers session={session}>
             {children}
           </Providers>
