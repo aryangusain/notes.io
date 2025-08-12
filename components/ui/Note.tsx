@@ -1,7 +1,7 @@
 "use client";
 
 import { IconTrash } from "@tabler/icons-react";
-import { useNoteStore } from "@/store/store";
+import { useNoteStore, useSidebarStore } from "@/store/store";
 
 interface NoteProps {
   id: string;
@@ -12,9 +12,11 @@ interface NoteProps {
 
 const Note: React.FC<NoteProps> = ({ id, title, content, onDelete }) => {
   const setNote = useNoteStore((state) => state.setNote);
+  const setSidebarOpen = useSidebarStore((state) => state.setOpen);
 
   const handleClick = () => {
     setNote({ id, title, content });
+    setSidebarOpen(false);
   };
 
   return (
