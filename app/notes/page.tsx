@@ -42,9 +42,7 @@ const Page = () => {
 
   if(loading) {
     return (
-        <div className="min-h-screen w-full flex justify-center items-center">
-          <Loader />
-        </div>
+        <Loader />
     )
   }
   else {

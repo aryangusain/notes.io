@@ -22,7 +22,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={cn("no-scrollbar select-none")}>
       <body
-        className={`min-h-screen w-full`}
+        className={`min-h-screen w-full relative`}
       >
         <ThemeProvider>
           <ToastContainer position="top-right" closeOnClick={true} />

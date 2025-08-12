@@ -14,14 +14,14 @@ export default function Home() {
 
   if (loading) {
     return (
-        <Loader />
+      <Loader />
     );
   }
 
   return (
     <div
       className={cn(
-        "min-h-screen flex flex-col justify-start items-center pt-[100px] px-[20px] gap-[20px] md:gap-[60px] bg-neutral-200 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100"
+        "min-h-screen flex flex-col justify-start items-center pt-[100px] px-[20px] gap-[20px] md:gap-[60px] bg-neutral-200 text-neutral-900 dark:bg-[#1e1e1e] dark:text-neutral-100"
       )}
     >
       <p className="text-[14px] md:text-[30px] dark:text-neutral-200 text-neutral-900 font-semibold text-center">

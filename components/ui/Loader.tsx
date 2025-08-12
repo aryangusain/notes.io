@@ -7,7 +7,7 @@ import React from "react";
 export const Loader = () => {
     
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 absolute top-[50%] left-[50%]">
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
