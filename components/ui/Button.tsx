@@ -9,7 +9,7 @@ const Button = ({children, className, variant, icon, onClick}: {children: React.
   return (
     <button onClick={onClick} className={cn("px-3 py-1.5 flex gap-[4px] rounded-lg text-[14px] shadow-md items-center cursor-pointer hover:scale-[1.02] transition-all duration-100 ease-in", variants[variant], className)}>
         {icon}
-        <div>
+        <div className="flex items-center justify-center">
             {children}
         </div>
     </button>

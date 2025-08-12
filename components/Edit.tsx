@@ -7,7 +7,7 @@ import { usePreviewStore, useNoteStore, useLoadingStore } from "@/store/store";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import { Loader } from "./ui/Loader";
-import html2pdf from 'html2pdf.js';
+import { ClipLoader } from "react-spinners";
 
 const Edit = () => {
   const id = useNoteStore((state) => state.id);
@@ -204,9 +204,14 @@ const Edit = () => {
             (saving) ?
               <Button
                 variant="primary"
-                className="text-sm text-neutral-500"
-                >
-                saving...
+                className="text-neutral-600"
+              >
+                saving...&nbsp;
+                <ClipLoader 
+                  color="#3f3f46"
+                  loading={saving}
+                  size={16}
+                  />
               </Button>
             :
               <Button
