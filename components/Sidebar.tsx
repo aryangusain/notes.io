@@ -51,8 +51,8 @@ const Sidebar = () => {
       className={cn(
         "rounded-r-xl shadow-xl flex flex-col gap-[40px] h-full dark:bg-[#27272a] bg-neutral-200 z-20 absolute top-0 left-0 transition-all duration-200 ease-in-out py-[60px] overflow-hidden",
         sidebarOpen
-          ? "w-[280px] px-[20px] opacity-100"
-          : " w-0 px-[0px] opacity-0"
+          ? "w-[280px] px-[20px]"
+          : " w-0 px-[0px]"
       )}
     >
       <IconX
