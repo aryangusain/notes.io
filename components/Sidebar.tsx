@@ -83,7 +83,7 @@ const Sidebar = () => {
       <div className="flex flex-col items-center gap-[8px] no-scrollbar w-full">
         {notes.length > 0 ? (
           notes
-            .filter((note) => note.title.toLowerCase().includes(searchText))
+            .filter((note) => note.title.toLowerCase().includes(searchText.toLowerCase()))
             .map((note) => (
               <Note
                 key={note.id}
