@@ -1,12 +1,13 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useSidebarStore } from "@/store/store";
+import { useSearchStore, useSidebarStore } from "@/store/store";
 import { useNoteStore } from "@/store/store";
 import { IconPlus, IconSearch, IconX } from "@tabler/icons-react";
 import Button from "./ui/Button";
 import Note from "./ui/Note";
 import { toast } from "react-toastify";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 const Sidebar = () => {
   const sidebarOpen = useSidebarStore((state) => state.open);
@@ -15,6 +16,9 @@ const Sidebar = () => {
   const setNotes = useNoteStore((state) => state.setNotes);
   const currentId = useNoteStore((state) => state.id);
   const resetNote = useNoteStore((state) => state.resetNote);
+  const sidebarRef = useOutsideClick(() => setSidebarOpen(false))
+  const searchText = useSearchStore((state) => state.text);
+  const changeSearchText = useSearchStore((state) => state.changeText);
 
   const handleDelete = async (id: string) => {
     try {
@@ -42,6 +46,7 @@ const Sidebar = () => {
 
   return (
     <div
+      ref={sidebarRef}
       className={cn(
         "rounded-r-xl shadow-xl flex flex-col gap-[40px] h-full dark:bg-[#27272a] bg-neutral-200 z-20 absolute top-0 left-0 transition-all duration-300 ease-in-out py-[60px] overflow-hidden",
         sidebarOpen
@@ -51,7 +56,7 @@ const Sidebar = () => {
     >
       <IconX
         className="size-8 absolute right-4 top-4 cursor-pointer"
-        onClick={setSidebarOpen}
+        onClick={() => setSidebarOpen(false)}
       />
       <div>
         <Button
@@ -68,21 +73,25 @@ const Sidebar = () => {
             type="text"
             className="outline-none placeholder:text-neutral-400 bg-transparent w-full"
             placeholder="Search note"
+            value={searchText}
+            onChange={(e) => changeSearchText(e.target.value)}
           />
         </div>
       </div>
 
       <div className="flex flex-col items-center gap-[8px] no-scrollbar w-full">
         {notes.length > 0 ? (
-          notes.map((note) => (
-            <Note
-              key={note.id}
-              id={note.id}
-              title={note.title}
-              content={note.content}
-              onDelete={handleDelete}
-            />
-          ))
+          notes
+            .filter((note) => note.title.toLowerCase().includes(searchText))
+            .map((note) => (
+              <Note
+                key={note.id}
+                id={note.id}
+                title={note.title}
+                content={note.content}
+                onDelete={handleDelete}
+              />
+            ))
         ) : (
           <p className="text-neutral-500 text-sm">No notes yet</p>
         )}

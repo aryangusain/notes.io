@@ -2,12 +2,13 @@
 
 import Edit from "@/components/Edit";
 import Preview from "@/components/Preview";
-import { useLoadingStore, usePreviewStore } from "@/store/store";
+import { useLoadingStore, usePreviewStore, useProfileStore, useSidebarStore } from "@/store/store";
 import { useNoteStore } from "@/store/store";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { Loader } from "@/components/ui/Loader";
 import { Note } from "@prisma/client";
+import { div } from "motion/react-client";
 
 const Page = () => {
   const previewOpen = usePreviewStore((state) => state.open);
@@ -40,7 +41,11 @@ const Page = () => {
 
 
   if(loading) {
-    return <Loader />
+    return (
+        <div className="min-h-screen w-full flex justify-center items-center">
+          <Loader />
+        </div>
+    )
   }
   else {
     return (

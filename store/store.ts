@@ -3,12 +3,25 @@ import { Note } from '@prisma/client'
 
 interface FlipState {
   open: boolean,
-  setOpen: () => void
+  setOpen: (val: boolean) => void
+  toggleState?: () => void
 }
 
 interface LoadingState {
   loading: boolean,
   setLoading: (val: boolean) => void
+}
+
+interface PreviewState {
+  open: boolean,
+  setOpen: (val: boolean) => void,
+  previewRef: React.RefObject<HTMLDivElement | null> | null,
+  setPreviewRef: (ref: React.RefObject<HTMLDivElement | null>) => void,
+}
+
+interface SearchState {
+  text: string,
+  changeText: (val: string) => void
 }
 
 interface NoteState {
@@ -54,23 +67,31 @@ export const useNoteStore = create<NoteState>((set) => ({
   changeContent: (str) => set(() => ({ content: str })),
 }));
 
-export const usePreviewStore = create<FlipState>((set) => ({
+export const usePreviewStore = create<PreviewState>((set) => ({
   open: false,
-  setOpen: () => set((state) => ({open: !state.open}))
+  setOpen: (val: boolean) => set(() => ({ open: val })),
+  previewRef: null,
+  setPreviewRef: (ref) => set(() => ({ previewRef: ref })),
 }))
 
 export const useLoadingStore = create<LoadingState>((set) => ({
   loading: false,
-  setLoading: (val: boolean) => set((state) => ({loading: val}))
+  setLoading: (val) => set((state) => ({loading: val}))
 }))
 
 export const useSidebarStore = create<FlipState>((set) => ({
   open: false,
-  setOpen: () => set((state) => ({open: !state.open}))
+  setOpen: (val) => set((state) => ({open: val}))
 }))
 
 export const useProfileStore = create<FlipState>((set) => ({
   open: false,
-  setOpen: () => set((state) => ({open: !state.open}))
+  setOpen: (val) => set((state) => ({open: val})),
+  toggleState: () => set((state) => ({open: !state.open}))
+}))
+
+export const useSearchStore = create<SearchState>((set) => ({
+  text: "",
+  changeText: (val) => set((state) => ({text: val})),
 }))
 
