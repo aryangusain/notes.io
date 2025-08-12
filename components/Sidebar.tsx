@@ -63,7 +63,7 @@ const Sidebar = () => {
           variant="primary"
           icon={<IconPlus className="size-4" />}
           className="rounded-full mb-[10px]"
-          onClick={resetNote}
+          onClick={() => {resetNote(); setSidebarOpen(false); }}
         >
           Create new
         </Button>

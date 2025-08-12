@@ -1,6 +1,6 @@
 "use client";
 
-import React, { KeyboardEvent } from "react";
+import React, { KeyboardEvent, useState } from "react";
 import Button from "./ui/Button";
 import { IconDeviceFloppy, IconEye, IconFile } from "@tabler/icons-react";
 import { usePreviewStore, useNoteStore, useLoadingStore } from "@/store/store";
@@ -23,6 +23,7 @@ const Edit = () => {
   const changeId = useNoteStore((state) => state.changeId);
   const { data: session } = useSession();
   const loading = useLoadingStore((state) => state.loading);
+  const [saving, setSaving] = useState(false);
   // const previewRef = usePreviewStore(state => state.previewRef);
 
   // const exportPDF = async () => {
@@ -118,8 +119,9 @@ const Edit = () => {
       toast.error("Title is required");
       return;
     }
-
+    
     try {
+      setSaving(true);
       let res;
       let data;
 
@@ -155,6 +157,9 @@ const Edit = () => {
     catch (err) {
       toast.error("Failed to save note");
       console.log(err);
+    }
+    finally {
+      setSaving(false);
     }
   };
 
@@ -195,13 +200,23 @@ const Edit = () => {
               Export
             </Button> */}
           </div>
-          <Button
-            variant="primary"
-            icon={<IconDeviceFloppy className="size-4" />}
-            onClick={handleSave}
-          >
-            Save
-          </Button>
+          {
+            (saving) ?
+              <Button
+                variant="primary"
+                className="text-sm text-neutral-500"
+                >
+                saving...
+              </Button>
+            :
+              <Button
+              variant="primary"
+              icon={<IconDeviceFloppy className="size-4" />}
+              onClick={handleSave}
+              >
+                Save
+              </Button>
+          }
         </div>
 
         <input

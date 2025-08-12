@@ -21,7 +21,7 @@ const Preview = () => {
     return (
         <div 
             ref={previewRef}
-            className="absolute top-16 left-[50%] translate-x-[-50%] w-[95%] rounded-xl h-[575px] dark:bg-[#3f3f46] bg-neutral-100 outline-none py-4 px-4 z-20 no-scrollbar overflow-auto"
+            className="absolute top-16 left-[50%] translate-x-[-50%] w-[95%] rounded-xl h-[575px] dark:bg-[#3f3f46] bg-neutral-100 outline-none py-4 px-4 z-10 no-scrollbar overflow-auto"
             style={{
                 fontSize: '14px',
                 lineHeight: '1.6',
