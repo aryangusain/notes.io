@@ -9,6 +9,14 @@ import { ToastContainer } from "react-toastify";
 export const metadata: Metadata = {
   title: "Notes.io",
   description: "Create and Edit markdown files and export them as pdf",
+  openGraph: {
+    type: "website",
+    url: "https://notes-io-livid.vercel.app",
+    title: "Notes.io",
+    description: "An app that lets you edit and save notes in markdown format",
+    siteName: "Notes.io",
+    images: [{url: "https://github-production-user-asset-6210df.s3.amazonaws.com/97178343/481255107-e9423573-9a14-4a18-aef0-0e93c07ee570.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250823%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250823T071251Z&X-Amz-Expires=300&X-Amz-Signature=a25c0e362ed5d07d2ea01ece7df77bd3d9a4e2be6a5042fcb06e9946eca897ae&X-Amz-SignedHeaders=host"}]
+  }
 };
 
 export default async function RootLayout({
